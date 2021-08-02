@@ -11,10 +11,15 @@ import UIKit
 final class FeedCoordinator: BaseCoordinator {
     var selectedPostIndex: Int?
     
+    private(set) var isCalledCoordinatorStart = false
+    
+    private(set) var isCalledShowPostInfo = false
+    
     override func start() {
         let feedTabBarIcon = UIImage(named: "Home")
         let feedTabBarItem = UITabBarItem(title: AppConstants.feedViewControllerTitle, image: feedTabBarIcon, selectedImage: nil)
         navigationController.tabBarItem = feedTabBarItem
+        isCalledCoordinatorStart = true
     }
         
     func showPost(number index: Int) {
@@ -25,7 +30,6 @@ final class FeedCoordinator: BaseCoordinator {
         let post = FeedModel.shared.posts[index]
         postViewController.title = post.title
         selectedPostIndex = index
-
         navigationController.pushViewController(postViewController, animated: true)
     }
     
@@ -39,6 +43,7 @@ final class FeedCoordinator: BaseCoordinator {
         infoViewModel.viewInput = infoViewController
         infoViewController.coordinator = self
         navigationController.present(infoViewController, animated: true, completion: nil)
+        isCalledShowPostInfo = true
     }
     
     func showDeletePostAlert() {
