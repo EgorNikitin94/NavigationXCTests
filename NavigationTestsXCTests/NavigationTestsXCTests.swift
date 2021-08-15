@@ -27,14 +27,19 @@ class NavigationTestsXCTests: XCTestCase {
 
     func test_coordinator_start() {
         feedCoordinator.start()
-        XCTAssertTrue(feedCoordinator.isCalledCoordinatorStart, "Not called showPost")
+        XCTAssertEqual(feedCoordinator.navigationController.tabBarItem.title, "Feed")
     }
 
     func test_coordinator_show_post() {
         feedCoordinator.showPost(number: postIndex)
-        feedCoordinator.showPostInfo()
         XCTAssertEqual(feedCoordinator.selectedPostIndex, postIndex)
-        XCTAssertTrue(feedCoordinator.isCalledShowPostInfo, "Not called showNextViewController")
+    }
+    
+    func test_show_post_info() {
+        feedCoordinator.selectedPostIndex = postIndex
+        feedCoordinator.showPostInfo()
+        XCTAssertNotNil(feedCoordinator.selectedPostIndex, "selectedPostIndex = nil!")
+        XCTAssertEqual(feedCoordinator.selectedPostIndex, postIndex)
     }
 
 }
