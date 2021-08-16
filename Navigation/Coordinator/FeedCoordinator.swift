@@ -9,6 +9,7 @@
 import UIKit
 
 final class FeedCoordinator: BaseCoordinator {
+    
     var selectedPostIndex: Int?
     
     override func start() {
@@ -25,7 +26,6 @@ final class FeedCoordinator: BaseCoordinator {
         let post = FeedModel.shared.posts[index]
         postViewController.title = post.title
         selectedPostIndex = index
-
         navigationController.pushViewController(postViewController, animated: true)
     }
     
